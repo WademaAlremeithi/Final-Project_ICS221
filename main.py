@@ -4,6 +4,29 @@ class Post:
         self.post = post
         self.post_owner = post_owner
         self.views = views
+
+class HashTable:
+    def __init__(self, size=100):
+        self.size = size
+        self.table = [None] * size 
+        
+    def hash_function(self, key):
+        return hash(key) % self.size
+
+    def insert(self, key, value):
+        index = self.hash_function(key)
+        if self.table[index] is None:
+            self.table[index] = [(key, value)]
+        else:
+            self.table[index].append((key, value))
+            
+    def search(self, key):
+        index = self.hash_function(key)
+        if self.table[index] is not None:
+            for item in self.table[index]:
+                if item[0] == key:
+                    return item[1]
+        return None
         
 #Binary Trees to use for binary search trees functions
 #This would be used to find posts given a range of datetime
@@ -130,6 +153,29 @@ class BinarySearchTree:
                 sub_inorder(root.r_child)
         sub_inorder(root)
         return list
-                
+
+class PostManager:
+    def __init__(self):
+        self.binary_search_tree = BinarySearchTree()
+        self.hash_table = HashTable
+
+    def add_post(self, post):
+        self.binary_search_tree.insert(post.datetime)
+        self.hash_table.insert(post.datetime, post)
+
+    def find_post_by_datatime(self, datetime):
+        return self.hash_table.search(datetime)
+
+post_manager = PostManagger()
+#test cases
+sample_post = Post("24-4-2024  16:36", "Today is your opportunity to build the tomorrow you want. -Ken Poirot", "Sara Naser", 100)
+post_manager.add_post(sample_post)
+#find the post by its datetime
+found_post = post_manager.find_post_by_datetime("24-4-2024  16:36")
+if found_post:
+    print("Found post: ", found_post.post)
+else:
+    print("Post not found.")
+                                            
                             
         

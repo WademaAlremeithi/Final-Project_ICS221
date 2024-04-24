@@ -5,7 +5,7 @@ class Post:
         self.post_owner = post_owner
         self.views = views
         
-#Binary Trees to use for binbary search trees functions
+#Binary Trees to use for binary search trees functions
 #This would be used to find posts given a range of datetime
 class Node:
     def __init__(self, data):
@@ -44,9 +44,9 @@ class BinarySearchTree:
     def print_tree(self, root, depth):
         if not root: 
             return
-        self._print_tree(root.r_child, depth + 1) 
+        self.print_tree(root.r_child, depth + 1) 
         print('\t'* depth + '➡️ Node'+ str(root.data) +'')
-        self._print_tree(root.l_child, depth + 1) 
+        self.print_tree(root.l_child, depth + 1) 
 
     def insert(self, node):
         if type(node) is int:
@@ -109,11 +109,11 @@ class BinarySearchTree:
             return self.search_value(value, self.root)
 
     def search_value(self, value, root):
-        if nor root:
-        return None
-        if value ==root.data:
-            retrun root
-        elif value <root.data:
+        if not root:
+            return None
+        if value == root.data:
+            return root
+        elif value < root.data:
             return self.search_value(value, root.l_child)
         else:
             return self.search_value(value, root.r_child)

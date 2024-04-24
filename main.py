@@ -1,3 +1,5 @@
+import heapq
+
 class Post:
     def __init__(self, datetime, post, post_owner, views):
         self.datetime = datetime
@@ -154,28 +156,54 @@ class BinarySearchTree:
         sub_inorder(root)
         return list
 
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+
+    def push(self, post):
+        heapq.heappush(self.heap, (-post.views, post))
+
+    def pop_max(self):
+        if self.heap:
+            return heapq.heappop(self.heap)[1]
+        else:
+            return None
+
 class PostManager:
     def __init__(self):
         self.binary_search_tree = BinarySearchTree()
-        self.hash_table = HashTable
+        self.hash_table = HashTable()
+        self.max_heap = MaxHeap()
 
     def add_post(self, post):
         self.binary_search_tree.insert(post.datetime)
         self.hash_table.insert(post.datetime, post)
+        self.max_heap.push(post)
 
     def find_post_by_datatime(self, datetime):
         return self.hash_table.search(datetime)
 
-post_manager = PostManagger()
+    def find_most_viewed_post(self):
+        return self.max_heap.pop_max()
+
+post_manager = PostManager()
 #test cases
 sample_post = Post("24-4-2024  16:36", "Today is your opportunity to build the tomorrow you want. -Ken Poirot", "Sara Naser", 100)
 post_manager.add_post(sample_post)
+
 #find the post by its datetime
 found_post = post_manager.find_post_by_datetime("24-4-2024  16:36")
 if found_post:
     print("Found post: ", found_post.post)
 else:
     print("Post not found.")
+    
+#find the most viewed post
+most_viewed_post = post_manager.find_most_viewed_post()
+if most_viewed_post:
+    print("Most viewed post: ", most_viewed_post.post)
+else:
+    print("No posts available.")
                                             
                             
         

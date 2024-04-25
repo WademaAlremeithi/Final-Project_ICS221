@@ -1,20 +1,25 @@
 import heapq
 
+#class to represent a single post
 class Post:
     def __init__(self, datetime, post, post_owner, views):
-        self.datetime = datetime
+        self.datetime = datetime 
         self.post = post
         self.post_owner = post_owner
         self.views = views
 
+#hash table implementation 
+#provides fast post retrieval based on datetimes
 class HashTable:
     def __init__(self, size=100):
-        self.size = size
+        self.size = size 
         self.table = [None] * size 
         
+    #hash function to determine index for a given key
     def hash_function(self, key):
         return hash(key) % self.size
 
+    #insert a key-value pair into the hash table
     def insert(self, key, value):
         index = self.hash_function(key)
         if self.table[index] is None:
@@ -22,6 +27,7 @@ class HashTable:
         else:
             self.table[index].append((key, value))
             
+    #search for a key in the hash table and return its corresponding value
     def search(self, key):
         index = self.hash_function(key)
         if self.table[index] is not None:
@@ -156,33 +162,41 @@ class BinarySearchTree:
         sub_inorder(root)
         return list
 
+#max heap implementation using heapq module
+#keeps highest views post at root
 class MaxHeap:
     def __init__(self):
         self.heap = []
 
+    #push a post onto the max heap
     def push(self, post):
         heapq.heappush(self.heap, (-post.views, post))
 
+    #pop the post with maximum views from the max heap
     def pop_max(self):
         if self.heap:
             return heapq.heappop(self.heap)[1]
         else:
             return None
 
+#post manager class to manage posts 
 class PostManager:
     def __init__(self):
         self.binary_search_tree = BinarySearchTree()
         self.hash_table = HashTable()
         self.max_heap = MaxHeap()
 
+    #add a new post to the manager 
     def add_post(self, post):
         self.binary_search_tree.insert(post.datetime)
         self.hash_table.insert(post.datetime, post)
         self.max_heap.push(post)
 
+    #find a post bt its datetime
     def find_post_by_datatime(self, datetime):
         return self.hash_table.search(datetime)
 
+    #find posts within a specific datetime range
     def find_posts_by_range(self, start_datetime, end_datetime):
         posts = []
         start = self.binary_search_tree.search(start_datetime)
@@ -196,6 +210,7 @@ class PostManager:
             current = current.next_largest()
         return posts
 
+    #find the most viewed post
     def find_most_viewed_post(self):
         return self.max_heap.pop_max()
 

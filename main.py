@@ -183,6 +183,19 @@ class PostManager:
     def find_post_by_datatime(self, datetime):
         return self.hash_table.search(datetime)
 
+    def find_posts_by_range(self, start_datetime, end_datetime):
+        posts = []
+        start = self.binary_search_tree.search(start_datetime)
+        if start is None:
+            return posts
+        current = start
+        while current is not None and current.data <= end_datetime:
+            post = self.binary_search_tree.search(current.data)
+            if post:
+                posts.append(post)
+            current = current.next_largest()
+        return posts
+
     def find_most_viewed_post(self):
         return self.max_heap.pop_max()
 
@@ -204,6 +217,16 @@ if most_viewed_post:
     print("Most viewed post: ", most_viewed_post.post)
 else:
     print("No posts available.")
+
+#finding the posts in a specific datetime range
+posts = post_manager.find_posts_by_range("24-4-2024 16:00", "24-4-2024 18:00")
+if posts:
+    print("Posts in the given range:")
+    for i in posts:
+        print(i.post)
+else:
+    print("No Posts found in the given range")
+
                                             
                             
         

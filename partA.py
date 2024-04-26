@@ -1,4 +1,4 @@
-
+#PART A
 #class to represent a single post
 class Post:
     def __init__(self, datetime, post, post_owner, views):
@@ -251,6 +251,5 @@ if posts:
 else:
     print("No Posts found in the given range")
 
-                                            
-                            
+
         

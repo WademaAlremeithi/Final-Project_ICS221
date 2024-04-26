@@ -72,7 +72,7 @@ class BinarySearchTree:
         
     def to_string(self):
         if self.root is None:
-            return 'Nil"
+            return "Nil"
         self.print_tree(self.root, 0)
 
     #Prints the tree as a representation for better visualization
@@ -97,10 +97,10 @@ class BinarySearchTree:
     def insert_node(self, node, root):
         if root.data >= node.data:
             if root.l_child is None:
-            root.l_child = node
-            node.parent = root
+                root.l_child = node
+                node.parent = root
             else:
-                self.insert_node(node,root.l_child))
+                self.insert_node(node,root.l_child)
         else:
             if root.r_child is None:
                 root.r_child = node
@@ -123,7 +123,7 @@ class BinarySearchTree:
                 self.root.parent = None
                 return deleted
         else:
-            return self.delet_node(node)
+            return self.delete_node(node)
 
     def delete_node(self, node):
         if node.l_child is None or node.r_child is None:
@@ -139,7 +139,7 @@ class BinarySearchTree:
         else:
             replacement = node.next_largest()
             replacement.data, node.data = node.data, replacement.data
-            return self._delete_node(replacement)
+            return self.delete_node(replacement)
     def search(self, value):
         if self.root is None:
             return None
@@ -202,7 +202,7 @@ class PostManager:
         self.max_heap.push(post)
 
     #find a post bt its datetime
-    def find_post_by_datatime(self, datetime):
+    def find_post_by_datetime(self, datetime):
         return self.hash_table.search(datetime)
 
     #find posts within a specific datetime range

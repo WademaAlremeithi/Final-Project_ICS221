@@ -223,8 +223,8 @@ class PostManager:
     def find_most_viewed_post(self):
         return self.max_heap.pop_max()
 
-post_manager = PostManager()
 #test cases
+post_manager = PostManager()
 sample_post = Post("24-4-2024  16:36", "Today is your opportunity to build the tomorrow you want. -Ken Poirot", "Sara Naser", 100)
 post_manager.add_post(sample_post)
 

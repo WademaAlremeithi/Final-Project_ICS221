@@ -1,4 +1,3 @@
-import heapq
 
 #class to represent a single post
 class Post:
@@ -39,21 +38,25 @@ class HashTable:
 #Binary Trees to use for binary search trees functions
 #This would be used to find posts given a range of datetime
 class Node:
+    #using the constructor method to create attributes of the node including its children, parent and the data of the node
     def __init__(self, data):
         self.l_child = None
         self.r_child = None
         self.parent = None
         self.data = data
         
+    #Represents the data of the node as a string    
     def __repr__(self):
         return f"Node{self.data}"
         
+    #Finding the minimum node by traversing down the left subtree    
     def find_min(self):
         current = self
         while current.l_child is not None:
            current = current.l_child
         return current
-
+        
+    #finding the next largest node by checkinge right subtree and the nodes' parent 
     def next_largest(self):
         if self.r_child is not None:
             return self.r_child.find_min()
@@ -72,6 +75,7 @@ class BinarySearchTree:
             return 'Nil"
         self.print_tree(self.root, 0)
 
+    #Prints the tree as a representation for better visualization
     def print_tree(self, root, depth):
         if not root: 
             return
@@ -79,6 +83,7 @@ class BinarySearchTree:
         print('\t'* depth + '➡️ Node'+ str(root.data) +'')
         self.print_tree(root.l_child, depth + 1) 
 
+    #Inserting a node into the tree by checking the exceptions if not applicable calls the insert_node
     def insert(self, node):
         if type(node) is int:
             node = Node(node)
@@ -88,7 +93,7 @@ class BinarySearchTree:
             return
         else:
             self.insert_node(node, self.root)
-            
+     #diretcly inserts a node by compairng the new node's data to right and left child of the root, or inserting it as a root.       
     def insert_node(self, node, root):
         if root.data >= node.data:
             if root.l_child is None:
@@ -102,6 +107,8 @@ class BinarySearchTree:
                 node.parent = root
             else:
                 self.insert_node(node, root.r_child)
+    #The two functions below represent the delete operations in a BST
+    #This works by deleting the data of the node and rearranging the tree based on the next largest 
     def delete(self, value):
         node = self.search(value)
         if node is None:
@@ -138,7 +145,8 @@ class BinarySearchTree:
             return None
         else:
             return self.search_value(value, self.root)
-
+    #The search operation in a bst
+    #Strating at the root and moving to the right or left subtree based on the value
     def search_value(self, value, root):
         if not root:
             return None
@@ -148,7 +156,7 @@ class BinarySearchTree:
             return self.search_value(value, root.l_child)
         else:
             return self.search_value(value, root.r_child)
-
+    #This rearranges the bst in order
     def inorder(self):
         if not self.root:
             return []
@@ -164,6 +172,7 @@ class BinarySearchTree:
 
 #max heap implementation using heapq module
 #keeps highest views post at root
+import heapq
 class MaxHeap:
     def __init__(self):
         self.heap = []

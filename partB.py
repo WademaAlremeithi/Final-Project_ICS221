@@ -9,6 +9,10 @@ class RoadNetwork:
     def add_intersection(self, intersection_id):
         self.graph.add_node(intersection_id)
 
+    def add_house(self, house_id, intersection_id):
+        self.graph.add_node(house_id)
+        self.graph.add_edge(house_id, intersection_id)
+
     def add_road(self, intersection_from, intersection_to, road_id, road_name, length, weight):
         self.graph.add_edge(intersection_from, intersection_to, road_id=road_id, road_name=road_name, length=length, weight=weight)
 

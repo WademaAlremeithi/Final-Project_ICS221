@@ -56,5 +56,8 @@ def dijkstra(graph, start, end):
                 
     return distances[end], paths[end]
 
+def distribute_packages(self, start, end):
+    return self.dijkstra(start, end)
+
     
                             

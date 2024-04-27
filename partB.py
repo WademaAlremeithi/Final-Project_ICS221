@@ -59,5 +59,33 @@ def dijkstra(graph, start, end):
 def distribute_packages(self, start, end):
     return self.dijkstra(start, end)
 
+#test cases
+road_network = RoadNetwork()
+
+road_network.add_intersection("A")
+road_network.add_intersection("B")
+road_network.add_intersection("C")
+road_network.add_intersection("D")
+
+road_network.add_road("A", "B", "1", "Sheikh Zayed Bin Sultan Street", 5, 0.5)
+road_network.add_road("B", "C", "2", "Hamdan Bin Mohammed Street", 7, 0.3)
+road_network.add_road("B", "D", "3", "Khalifa Bin Zayed Street, 6, 0.4)
+road_network.add_road("C", "D", "4", "Al Salam Street", 5, 0.3)
+
+road_network.add_house("House1", "A")
+road_network.add_house("House2", "B")
+road_network.add_house("House3", "C")                      
+road_network.add_house("House4", "D")
+
+road_network.draw()
+
+start_house = "House1"    
+end_house = "House3"
+shortest_distance, shortest_path = road_network.distribute_packages(start_house, end_house)
+print(f"Shortest distance from {start_house} to {end_house}: {shortest_distance}")
+print(f"Shortest path: {shortest_path}")
+                      
+
+
     
                             

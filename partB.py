@@ -51,7 +51,7 @@ class RoadNetwork:
             for neighbor in self.graph.neighbors(here):
                 if neighbor not in visited:
                     if 'weight' in self.graph[here][neighbor]:
-                        new_distance = distances[here] + graph[here][neighbor]['weight']
+                        new_distance = distances[here] + self.graph[here][neighbor]['weight']
                     else:
                         new_distance = distances[here]
                     if new_distance < distances[neighbor]:

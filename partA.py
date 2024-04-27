@@ -84,13 +84,10 @@ class BinarySearchTree:
         self.print_tree(root.l_child, depth + 1) 
 
     #Inserting a node into the tree by checking the exceptions if not applicable calls the insert_node
-    def insert(self, node):
-        if type(node) is int:
-            node = Node(node)
-
+    def insert(self, data):
+        node = Node(data)
         if self.root is None:
             self.root = node
-            return
         else:
             self.insert_node(node, self.root)
      #diretcly inserts a node by compairng the new node's data to right and left child of the root, or inserting it as a root.       
